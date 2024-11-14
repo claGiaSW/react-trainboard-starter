@@ -15,8 +15,8 @@ const App = () => (
                     <Route index element = { <Stations /> } />
                 </Route>
                 <Route path = "/countries">
-                    <Route index element = { <Countries /> } />
                     <Route path = ":id" element = { <Country /> } />
+                    <Route index element = { <Countries /> } />
                 </Route>
             </Routes>
             <footer>

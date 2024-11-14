@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import { getCountries } from '../helpers/ApiCallHelper';
 import Country from './Country';
 
@@ -15,13 +16,13 @@ const Countries: React.FC = () =>
 
     return (
         <div>
-            <ol>Countries are:
+            <ul>Countries are:
                 {
                     allCountries.map( ( country ) => (
-                        <li key = { country.id }>{ country.name }</li>
+                        <li key = { country.id }><Link to = { `/countries/${country.id}` }>{ country.name }</Link></li>
                     ))
                 }
-            </ol>
+            </ul>
         </div>
     );
 };

@@ -15,21 +15,17 @@ const Country: React.FC = () => {
 
     useEffect(() => {
         getCountries()
-            .then(response => {
-                const apiCountry = response.data.countries.filter((c: Country) => c.id === Number(id));
-                if (apiCountry) {
-                    setCountry(apiCountry);
-                }
-            })
+            .then(response => setCountry(response.data.countries.filter((c: Country) => c.id === Number(id))[0]))
             .catch((err) => console.log(err))
             .finally(() => console.log('countries printed'));
     }, []);
 
     return (
         <div>
+            <p>Country:</p>
             {
                 country !== undefined &&
-                <p> Country: country.id </p>
+                <p> {country.name} {country.id} </p>
             }
         </div>
     );
