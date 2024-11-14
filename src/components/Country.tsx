@@ -15,7 +15,7 @@ const Country: React.FC = () => {
 
     useEffect(() => {
         getCountries()
-            .then(response => setCountry(response.data.countries.filter((c: Country) => c.id === Number(id))[0]))
+            .then(response => setCountry(response.data.countries.find((c: Country) => c.id === Number(id))))
             .catch((err) => console.log(err))
             .finally(() => console.log('countries printed'));
     }, []);

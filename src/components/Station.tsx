@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import '../App.css';
 import { getStations } from '../helpers/ApiCallHelper';
 
 interface Station {
@@ -16,22 +17,31 @@ interface Station {
 
 const Station: React.FC = () => {
     const { id } = useParams();
-    
+
     const [station, setStation] = useState<Station>();
 
     useEffect(() => {
         getStations()
-            .then(response => setStation(response.data.stations.filter((s: Station) => s.id === Number(id))[0]))
+            .then(response => setStation(response.data.stations.find((s: Station) => s.id === Number(id))))
             .catch((err) => console.log(err))
             .finally(() => console.log('countries printed'));
     }, []);
 
     return (
-        <div>
-            <p> Station: </p>
+        <div className = "container">
+            <div className = "header">Station Information</div>
             {
-                station !== undefined &&
-                <p>{station.name} {station.id} </p>
+                station ? (
+                    <div className = "station-info">
+                        <span className = "label">Name:</span>
+                        <span className = "value">{station.name}</span>
+
+                        <span className = "label">ID:</span>
+                        <span className = "value">{station.id}</span>
+                    </div>
+                ) : (
+                    <p>Loading...</p>
+                )
             }
         </div>
     );
