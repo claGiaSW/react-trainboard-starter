@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from 'react';
-import { fetchStations } from '../helpers/ApiCallHelper';
+import { getStations } from '../helpers/ApiCallHelper';
+import Station from './Station';
 
 const Stations: React.FC = () => {
 
-    const [allStations, setAllStations] = useState([]);
+    const [allStations, setAllStations] = useState<Station[]>([]);
 
     useEffect(() => {
-        fetchStations()
-            .then((value) => console.log(value))
+        getStations()
+            .then(response => setAllStations(response.data.stations))
             .catch((err) => console.log(err))
             .finally(() => console.log('finally'));
     }, []);
@@ -16,7 +17,13 @@ const Stations: React.FC = () => {
 
     return (
         <div>
-            Stations!
+            <ol>Stations are:
+                {
+                    allStations.map( ( station ) => (
+                        <li key = { station.id }>{ station.name }</li>
+                    ))
+                }
+            </ol>
         </div>
     );
 };
