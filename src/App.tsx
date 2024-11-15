@@ -5,6 +5,7 @@ import Countries from './components/Countries';
 import Country from './components/Country';
 import Station from './components/Station';
 import Stations from './components/Stations';
+import Fares from './pages/Fares';
 
 const App = () => (
     <BrowserRouter>
@@ -18,6 +19,9 @@ const App = () => (
                     <Route path = ":id" element = { <Country /> } />
                     <Route index element = { <Countries /> } />
                 </Route>
+                <Route path = "/fares">
+                    <Route index element = { <Fares /> } />
+                </Route>
             </Routes>
             <footer>
                 <div>
@@ -25,6 +29,9 @@ const App = () => (
                 </div>
                 <div>
                     <Link to = "/countries">Countries</Link>
+                </div>
+                <div>
+                    <Link to = "/fares">Fares</Link>
                 </div>
             </footer>
         </div>

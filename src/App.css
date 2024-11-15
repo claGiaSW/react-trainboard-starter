@@ -8,7 +8,23 @@
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  align-items: center;
   gap: 1rem;
+}
+
+.container-stations {
+  margin: 2rem auto;
+  padding: 2rem;
+  max-width: 700px;
+  border: 2px solid red;
+  border-radius: 12px;
+  background-color: #ffffff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 .header {
@@ -36,4 +52,17 @@
   background-color: #f4f4f4;
   padding: 0.5rem;
   border-radius: 4px;
+}
+
+.button-fares {
+    background-color: red;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+
+    &:hover {
+      background-color: rgb(200, 89, 89);
+    }
 }

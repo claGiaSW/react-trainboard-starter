@@ -6,6 +6,7 @@ import { getStationById } from '../helpers/ApiCallHelper';
 interface Station {
     id: number;
     name: string;
+    displayName?: string;
     aliases: string[];
     crs: string;
     nlc: string;

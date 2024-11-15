@@ -1,5 +1,8 @@
+/* eslint-disable @typescript-eslint/no-inferrable-types */
+
 import axios from 'axios';
 import Country from '../components/Country';
+import { Journey } from '../components/Fare';
 import Station from '../components/Station';
 
 const axiosInstance = axios.create({
@@ -9,20 +12,16 @@ const axiosInstance = axios.create({
     },
 });
 
-export const getCountries = (): Promise<Country[]> => {
-    return axiosInstance.get('/countries')
-        .then(response => {
-            const countries: Country[] = response.data.countries;
-            return countries;
-        });
+export const getCountries = async (): Promise<Country[]> => {
+    const response = await axiosInstance.get('/countries');
+    const countries: Country[] = response.data.countries;
+    return countries;
 };
 
-export const getStations = (): Promise<Station[]> => {
-    return axiosInstance.get('/stations')
-        .then(response => {
-            const stations: Station[] = response.data.stations;
-            return stations;
-        });
+export const getStations = async (): Promise<Station[]> => {
+    const response = await axiosInstance.get('/stations');
+    const stations: Station[] = response.data.stations;
+    return stations;
 };
 
 export const getCountryById = async (queryId: number): Promise<Country> => {
@@ -41,4 +40,18 @@ export const getStationById = async (queryId: number): Promise<Station> => {
         throw new Error(`Station with ID ${queryId} not found`);
     }
     return foundStation;
+};
+
+export const getJourneys = async (originStation: string  = 'EXD', destinationStation: string = 'EXT', outboundDateTime: string, numberOfChildren: number, numberOfAdults: number): Promise<Journey[]> => {
+    const response = await axiosInstance.get('/fares', {
+        params: {
+            originStation: originStation,
+            destinationStation: destinationStation,
+            outboundDateTime: outboundDateTime,
+            numberOfChildren: numberOfChildren,
+            numberOfAdults: numberOfAdults,
+        },
+    });
+    const journeys: Journey[] = response.data.outboundJourneys;
+    return journeys;
 };
