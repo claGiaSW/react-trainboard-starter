@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from 'react';
+import DatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
 import '../App.css';
 import { Journey } from '../components/Fare';
 import Station from '../components/Station';
@@ -9,13 +11,13 @@ const Fares: React.FC = () => {
     const [allJourneys, setAllJourneys] = useState<Journey[]>([]);
     const [allStations, setAllStations] = useState<Station[]>([]);
     const [error, setError] = useState<string | null>(null);
-    const [isLoading, setIsLoading] = useState<boolean>(true);
+    const [isLoading, setIsLoading] = useState<boolean>(false);
 
     const [originStation, setOriginStation] = useState<string>();
     const [destinationStation, setDestinationStation] = useState<string>();
-    const [outboundDateTime, setOutboundDateTime] = useState<string>('2024-11-16T13:00:00');
+    const [outboundDateTime, setOutboundDateTime] = useState<Date>(new Date());
     const [numberOfChildren, setNumberOfChildren] = useState<number>(0);
-    const [numberOfAdults, setNumberOfAdults] = useState<number>(2);
+    const [numberOfAdults, setNumberOfAdults] = useState<number>(0);
 
     useEffect(() => {
         getStations()
@@ -24,7 +26,7 @@ const Fares: React.FC = () => {
             });
     }, []);
 
-    const handleSubmit = (e: any) => {
+    const handleSubmit = (e: React.FormEvent) => {
         setIsLoading(true);
 
         e.preventDefault();
@@ -79,6 +81,21 @@ const Fares: React.FC = () => {
                         </select>
                     </div>
                     <div>
+                        <label htmlFor = "adults">ADULTS: </label>
+                        <input type = "number" id = "adults" name = "adults" min = "0" max = "100"
+                            value = { numberOfAdults }
+                            onChange = { (event) => setNumberOfAdults(Number(event.target.value)) }/>
+                    </div>
+                    <div>
+                        <label htmlFor = "children">CHILDREN: </label>
+                        <input type = "number" id = "children" name = "children" min = "0" max = "100"
+                            value = { numberOfChildren }
+                            onChange = { (event) => setNumberOfChildren(Number(event.target.value)) }/>
+                    </div>
+                    <div>
+                        <DatePicker selected = { outboundDateTime } onChange = { (date) => date && setOutboundDateTime(date) }/>
+                    </div>
+                    <div>
                         <input type = 'submit' value = 'SHOW FARES' />
                     </div>
                 </form>
@@ -102,8 +119,7 @@ const Fares: React.FC = () => {
                                         Tickets: {journey.tickets.map(ticket => (
                                             <li key = { ticket.fareId } className = "ticket-item">
                                                 <p>{ticket.name}</p>
-                                                <p>Price: {ticket.priceInPennies}</p>
-                                                <p>Availablity: {ticket.numberOfTickets}</p>
+                                                <p>Price: {ticket.priceInPennies / 100}£</p>
                                             </li>
                                         ))}
                                     </ul>

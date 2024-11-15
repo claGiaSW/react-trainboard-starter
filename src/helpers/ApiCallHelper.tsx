@@ -42,7 +42,7 @@ export const getStationById = async (queryId: number): Promise<Station> => {
     return foundStation;
 };
 
-export const getJourneys = async (originStation: string  = 'EXD', destinationStation: string = 'EXT', outboundDateTime: string, numberOfChildren: number, numberOfAdults: number): Promise<Journey[]> => {
+export const getJourneys = async (originStation: string  = 'EXD', destinationStation: string = 'EXT', outboundDateTime: Date, numberOfChildren: number, numberOfAdults: number): Promise<Journey[]> => {
     const response = await axiosInstance.get('/fares', {
         params: {
             originStation: originStation,
