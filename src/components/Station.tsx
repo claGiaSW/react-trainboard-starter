@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import '../App.css';
-import { getStations } from '../helpers/ApiCallHelper';
+import { getStationById } from '../helpers/ApiCallHelper';
 
 interface Station {
     id: number;
@@ -21,8 +21,8 @@ const Station: React.FC = () => {
     const [station, setStation] = useState<Station>();
 
     useEffect(() => {
-        getStations()
-            .then(response => setStation(response.data.stations.find((s: Station) => s.id === Number(id))))
+        getStationById( Number(id) )
+            .then(response => setStation(response))
             .catch((err) => console.log(err))
             .finally(() => console.log('countries printed'));
     }, []);
