@@ -31,7 +31,7 @@ const Fares: React.FC = () => {
 
         e.preventDefault();
 
-        getJourneys(originStation, destinationStation, outboundDateTime, numberOfChildren, numberOfAdults)
+        getJourneys(originStation || allStations[0].name, destinationStation || allStations[0].name, outboundDateTime, numberOfChildren, numberOfAdults)
             .then(response => {
                 setAllJourneys(response);
                 setError(null);

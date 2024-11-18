@@ -42,16 +42,36 @@ export const getStationById = async (queryId: number): Promise<Station> => {
     return foundStation;
 };
 
-export const getJourneys = async (originStation: string  = 'EXD', destinationStation: string = 'EXT', outboundDateTime: Date, numberOfChildren: number, numberOfAdults: number): Promise<Journey[]> => {
-    const response = await axiosInstance.get('/fares', {
-        params: {
-            originStation: originStation,
-            destinationStation: destinationStation,
-            outboundDateTime: outboundDateTime,
-            numberOfChildren: numberOfChildren,
-            numberOfAdults: numberOfAdults,
-        },
-    });
-    const journeys: Journey[] = response.data.outboundJourneys;
-    return journeys;
+export const getJourneys = async (originStation: string, destinationStation: string, outboundDateTime: Date, numberOfChildren: number, numberOfAdults: number): Promise<Journey[]> => {
+    if (numberOfChildren < 0 || numberOfAdults < 0) {
+        throw new Error('Passengers amount cannot be negative');
+    }
+    if (numberOfChildren + numberOfAdults === 0) {
+        throw new Error('At least one passenger is required');
+    }
+
+    try{
+        const response = await axiosInstance.get('/fares', {
+            params: {
+                originStation: originStation,
+                destinationStation: destinationStation,
+                outboundDateTime: outboundDateTime,
+                numberOfChildren: numberOfChildren,
+                numberOfAdults: numberOfAdults,
+            },
+        });
+
+        if (!Array.isArray(response.data?.outboundJourneys)) {
+            throw new Error('Invalid API response format');
+        }
+
+        const journeys: Journey[] = response.data.outboundJourneys;
+        return journeys;
+
+    } catch (error) {
+        if (axios.isAxiosError(error)) {
+            throw new Error(`Failed to fetch journeys: ${error.response?.data?.message || error.message}`);
+        }
+        throw error;
+    }
 };
