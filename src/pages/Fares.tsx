@@ -113,7 +113,7 @@ const Fares: React.FC = () => {
                                         Departure: {journey.departureTime}
                                     </p>
                                     <p>
-                                        Arrival: {journey.departureTime}
+                                        Arrival: {journey.arrivalTime}
                                     </p>
                                     <ul>
                                         Tickets: {journey.tickets.map(ticket => (
