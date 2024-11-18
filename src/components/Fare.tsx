@@ -20,6 +20,18 @@ interface Leg {
     iptisTripIdentifier: string;
 }
 
+interface PricingBreakdown {
+    passenger: string;
+    passengerStatus: string;
+    ticketCount: number;
+    costInPennies: number;
+}
+
+interface PricingItem {
+    subTotalInPennies: number;
+    breakdown: PricingBreakdown[];
+}
+
 interface Ticket {
     fareId: string;
     fareSignature: string;
@@ -34,7 +46,7 @@ interface Ticket {
     name: string;
     description: string;
     priceInPennies: number;
-    pricingItem: { subTotalInPennies: number; breakdown: {passenger: string; passengerStatus: string; ticketCount: number; costInPennies: number }[]};
+    pricingItem: PricingItem;
     numberOfTickets: number;
     quotaControlled: string;
     isValidForLoyaltyCredit: boolean;
