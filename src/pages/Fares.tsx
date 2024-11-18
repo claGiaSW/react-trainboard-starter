@@ -53,7 +53,9 @@ const Fares: React.FC = () => {
                     Choose your station of departure:
                         </label>
                         <select
-                            id = "stationSelect"
+                            id = "originStationSelect"
+                            aria-required = "true"
+                            aria-label = "Origin station select"
                             value = { originStation }
                             onChange = { (event) => setOriginStation(event.target.value) }
                         >
@@ -69,7 +71,9 @@ const Fares: React.FC = () => {
                     Choose your destination:
                         </label>
                         <select
-                            id = "stationSelect"
+                            id = "destinationStationSelect"
+                            aria-required = "true"
+                            aria-label = "Destination station select"
                             value = { destinationStation }
                             onChange = { (event) => setDestinationStation(event.target.value) }
                         >
@@ -104,30 +108,28 @@ const Fares: React.FC = () => {
             {isLoading && <div role = "status">Loading journeys...</div>}
             {error && <div role = "alert" className = "error-message">{error}</div>}
             {!isLoading && !error && (
-                <>
-                    <ol className = "journeys-list" aria-label = "List of journeys">
-                        {
-                            allJourneys.map((journey) => (
-                                <li key = { journey.journeyId } className = "journey-item">
-                                    <p>
-                                        Departure: {journey.departureTime}
-                                    </p>
-                                    <p>
-                                        Arrival: {journey.arrivalTime}
-                                    </p>
-                                    <ul>
-                                        Tickets: {journey.tickets.map(ticket => (
-                                            <li key = { ticket.fareId } className = "ticket-item">
-                                                <p>{ticket.name}</p>
-                                                <p>Price: {ticket.priceInPennies / 100}£</p>
-                                            </li>
-                                        ))}
-                                    </ul>
-                                </li>
-                            ))
-                        }
-                    </ol>
-                </>
+                <ol className = "journeys-list" aria-label = "List of journeys">
+                    {
+                        allJourneys.map((journey) => (
+                            <li key = { journey.journeyId } className = "journey-item">
+                                <p>
+                                    Departure: {journey.departureTime}
+                                </p>
+                                <p>
+                                    Arrival: {journey.arrivalTime}
+                                </p>
+                                <ul>
+                                    Tickets: {journey.tickets.map(ticket => (
+                                        <li key = { ticket.fareId } className = "ticket-item">
+                                            <p>{ticket.name}</p>
+                                            <p>Price: {ticket.priceInPennies / 100}£</p>
+                                        </li>
+                                    ))}
+                                </ul>
+                            </li>
+                        ))
+                    }
+                </ol>
             )}
         </main>
     );
