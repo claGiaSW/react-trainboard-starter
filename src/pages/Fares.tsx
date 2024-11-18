@@ -23,6 +23,10 @@ const Fares: React.FC = () => {
         getStations()
             .then(response => {
                 setAllStations(response);
+            })
+            .catch((err) => {
+                setError('Failed to fetch stations. Please try again later.');
+                console.error('API Error:', err);
             });
     }, []);
 
