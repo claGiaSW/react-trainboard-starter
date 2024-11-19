@@ -50,9 +50,9 @@ const Fares: React.FC = () => {
     return (
         <main className = "container">
             <div className = "header">Your Journey</div>
-            <div className = 'container'>
+            <div className = 'container-form'>
                 <form onSubmit = { handleSubmit }>
-                    <div>
+                    <div className = "form-input">
                         <label htmlFor = "stationSelect" className = "label">
                     Choose your station of departure:
                         </label>
@@ -70,7 +70,7 @@ const Fares: React.FC = () => {
                             ))}
                         </select>       
                     </div>
-                    <div>
+                    <div className = "form-input">
                         <label htmlFor = "stationSelect" className = "label">
                     Choose your destination:
                         </label>
@@ -88,20 +88,22 @@ const Fares: React.FC = () => {
                             ))}
                         </select>
                     </div>
-                    <div>
+                    <div className = "form-input">
                         <label htmlFor = "adults">ADULTS: </label>
                         <input type = "number" id = "adults" name = "adults" min = "0" max = "100"
                             value = { numberOfAdults }
-                            onChange = { (event) => setNumberOfAdults(Number(event.target.value)) }/>
-                    </div>
-                    <div>
+                            onChange = { (event) => setNumberOfAdults(Number(event.target.value)) }
+                            className = 'passengers'/>
+
                         <label htmlFor = "children">CHILDREN: </label>
                         <input type = "number" id = "children" name = "children" min = "0" max = "100"
                             value = { numberOfChildren }
-                            onChange = { (event) => setNumberOfChildren(Number(event.target.value)) }/>
+                            onChange = { (event) => setNumberOfChildren(Number(event.target.value)) }
+                            className = 'passengers'/>
                     </div>
-                    <div>
-                        <DatePicker selected = { outboundDateTime } onChange = { (date) => date && setOutboundDateTime(date) }/>
+                    <div className = "form-input">
+                        <label htmlFor = "date">Date of departure: </label>
+                        <DatePicker selected = { outboundDateTime } onChange = { (date) => date && setOutboundDateTime(date) } showIcon />
                     </div>
                     <div>
                         <input type = 'submit' value = 'SHOW FARES' />

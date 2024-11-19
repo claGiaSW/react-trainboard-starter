@@ -1,8 +1,9 @@
 import React from 'react';
-import { BrowserRouter, Link, Route, Routes } from 'react-router-dom';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import './App.css';
 import Countries from './components/Countries';
 import Country from './components/Country';
+import Footer from './components/Footer';
 import Station from './components/Station';
 import Stations from './components/Stations';
 import Fares from './pages/Fares';
@@ -23,17 +24,7 @@ const App = () => (
                     <Route index element = { <Fares /> } />
                 </Route>
             </Routes>
-            <footer>
-                <div>
-                    <Link to = "/stations">Stations</Link>
-                </div>
-                <div>
-                    <Link to = "/countries">Countries</Link>
-                </div>
-                <div>
-                    <Link to = "/fares">Fares</Link>
-                </div>
-            </footer>
+            <Footer/>
         </div>
     </BrowserRouter>
 );
